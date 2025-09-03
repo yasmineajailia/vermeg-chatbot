@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vermeg Chatbot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1b3c87;
+            --secondary: #3366cc;
+            --accent: #5c85d6;
+            --light: #f5f7fa;
+            --dark: #2c3e50;
+            --success: #28a745;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4eaf5 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .chat-container {
+            background: white;
+            width: 100%;
+            max-width: 800px;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px var(--shadow);
+            overflow: hidden;
+        }
+        
+        .chat-header {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        
+        .chat-header img {
+            height: 60px;
+            margin-right: 20px;
+        }
+        
+        .chat-header h2 {
+            font-weight: 600;
+            font-size: 1.5rem;
+        }
+        
+        #chatbox {
+            height: 400px;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 12px 18px;
+            border-radius: 18px;
+            position: relative;
+            animation: fadeIn 0.3s ease;
+            line-height: 1.5;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .user-message {
+            align-self: flex-end;
+            background: var(--primary);
+            color: white;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .bot-message {
+            align-self: flex-start;
+            background: var(--light);
+            color: var(--dark);
+            border-bottom-left-radius: 4px;
+        }
+        
+        /* Formatting styles for bot messages */
+        .bot-message p {
+            margin-bottom: 12px;
+        }
+        
+        .bot-message p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .bot-message ul {
+            padding-left: 20px;
+            margin: 8px 0;
+        }
+        
+        .bot-message li {
+            margin-bottom: 6px;
+            list-style-type: disc;
+        }
+        
+        .bot-message li:last-child {
+            margin-bottom: 0;
+        }
+        
+        .chat-input {
+            display: flex;
+            padding: 20px;
+            background: white;
+            border-top: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        #user-input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            outline: none;
+            transition: border 0.3s ease;
+        }
+        
+        #user-input:focus {
+            border-color: var(--accent);
+        }
+        
+        #send-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            margin-left: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+        
+        #send-btn:hover {
+            background: var(--secondary);
+        }
+        
+        .typing {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 12px 18px;
+            border-radius: 18px;
+            background: var(--light);
+            max-width: fit-content;
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+        }
+        
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--secondary);
+            border-radius: 50%;
+            animation: typing 1.5s infinite;
+        }
+        
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0%, 60%, 100% { transform: translateY(0); }
+            30% { transform: translateY(-8px); }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .chat-container {
+                height: 100vh;
+                border-radius: 0;
+                max-width: 100%;
+            }
+            
+            body {
+                padding: 0;
+            }
+            
+            .message {
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <img src="/static/Vermeg_Logo-removebg-preview.png" alt="Vermeg Logo">
+            <h2>Vermeg Intelligent Assistant</h2>
+        </div>
+        <div id="chatbox">
+            <div class="message bot-message">
+                Hello! I'm Vermeg's AI assistant. How can I help you today?
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Ask me anything about Vermeg..." />
+            <button id="send-btn">Send</button>
+        </div>
+    </div>
+    <script>
+        const chatbox = document.getElementById('chatbox');
+        const userInput = document.getElementById('user-input');
+        const sendBtn = document.getElementById('send-btn');
+
+        function appendMessage(sender, text) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = sender === 'You' ? 'message user-message' : 'message bot-message';
+            
+            // Convert markdown-style bold text (**word**) to HTML bold tags
+            let formattedText = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
+            // Format bullet points and improve paragraph structure
+            if (sender === 'Bot') {
+                // Convert bullet points to proper HTML list items
+                formattedText = formattedText.replace(/•\s+(.*?)(?=(?:•|\n\n|$))/g, '<li>$1</li>');
+                
+                // If bullet points were found, wrap them in a ul
+                if (formattedText.includes('<li>')) {
+                    formattedText = formattedText.replace(/<li>.*?<\/li>/gs, match => '<ul>' + match + '</ul>');
+                }
+                
+                // Convert paragraphs (double line breaks) to proper paragraph tags
+                formattedText = '<p>' + formattedText.replace(/\n\n+/g, '</p><p>') + '</p>';
+                
+                // Make sure single line breaks still work within paragraphs
+                formattedText = formattedText.replace(/\n(?!<\/p>)/g, '<br>');
+                
+                // Clean up any empty paragraphs
+                formattedText = formattedText.replace(/<p>\s*<\/p>/g, '');
+            }
+            
+            messageDiv.innerHTML = formattedText;
+            chatbox.appendChild(messageDiv);
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+        
+        function showTyping() {
+            const typingDiv = document.createElement('div');
+            typingDiv.className = 'typing';
+            typingDiv.id = 'typing-indicator';
+            typingDiv.innerHTML = `
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            `;
+            chatbox.appendChild(typingDiv);
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+        
+        function removeTyping() {
+            const typingIndicator = document.getElementById('typing-indicator');
+            if (typingIndicator) {
+                chatbox.removeChild(typingIndicator);
+            }
+        }
+
+        async function sendMessage() {
+            const question = userInput.value.trim();
+            if (!question) return;
+            
+            // Add user message
+            appendMessage('You', question);
+            userInput.value = '';
+            
+            // Show typing indicator
+            showTyping();
+            
+            try {
+                const res = await fetch('/ask', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ question })
+                });
+                
+                const data = await res.json();
+                
+                // Remove typing indicator and add bot response
+                removeTyping();
+                appendMessage('Bot', data.answer);
+            } catch (error) {
+                removeTyping();
+                appendMessage('Bot', 'Sorry, I encountered an error. Please try again.');
+                console.error('Error:', error);
+            }
+        }
+
+        // Send message on button click
+        sendBtn.onclick = sendMessage;
+        
+        // Send message on Enter key
+        userInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Model directories (too large for GitHub)
+vermeg-chatbot-cpu/
+vermeg-chatbot-finetuned/
+
+# Environment variables and secrets
+.env
+*.key
+
+# Large data files
+*.bin
+*.pt
+*.pth
+
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Editor directories and files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Documentation PDFs if copyrighted
+digital solutions/**/*.pdf
+vermeg core solutions/**/*.pdf

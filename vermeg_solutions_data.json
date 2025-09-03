@@ -1,0 +1,574 @@
+[
+  {
+    "solution_name": "Xchanger",
+    "filename": "Brochure Xchanger for payments.pdf",
+    "category": "digital_solutions",
+    "description": "Vermeg Xchanger is a comprehensive regulatory reporting platform that helps financial institutions manage their regulatory obligations efficiently.",
+    "features": [
+      "Automated regulatory reporting",
+      "Multi-jurisdiction compliance",
+      "Real-time data validation",
+      "Flexible data transformation",
+      "Comprehensive audit trail"
+    ],
+    "benefits": [
+      "Reduces compliance costs",
+      "Minimizes regulatory risk",
+      "Improves data quality",
+      "Accelerates reporting processes",
+      "Ensures regulatory compliance"
+    ],
+    "use_cases": [
+      "Regulatory reporting",
+      "Risk management",
+      "Data quality management",
+      "Compliance monitoring"
+    ]
+  },
+  {
+    "solution_name": "Xchanger",
+    "filename": "Brochure Xchanger Iso.pdf",
+    "category": "digital_solutions",
+    "description": "Vermeg Xchanger is a comprehensive regulatory reporting platform that helps financial institutions manage their regulatory obligations efficiently.",
+    "features": [
+      "Automated regulatory reporting",
+      "Multi-jurisdiction compliance",
+      "Real-time data validation",
+      "Flexible data transformation",
+      "Comprehensive audit trail"
+    ],
+    "benefits": [
+      "Reduces compliance costs",
+      "Minimizes regulatory risk",
+      "Improves data quality",
+      "Accelerates reporting processes",
+      "Ensures regulatory compliance"
+    ],
+    "use_cases": [
+      "Regulatory reporting",
+      "Risk management",
+      "Data quality management",
+      "Compliance monitoring"
+    ]
+  },
+  {
+    "solution_name": "Client Data Collector",
+    "filename": "Client Data Collector-Brochure .pdf",
+    "category": "digital_solutions",
+    "description": "Vermeg Client Data Collector is a solution for efficient collection and management of client data across multiple channels.",
+    "features": [
+      "Multi-channel data collection",
+      "Data validation",
+      "Automated workflows",
+      "Integration capabilities",
+      "Compliance tracking"
+    ],
+    "benefits": [
+      "Improved data quality",
+      "Faster onboarding",
+      "Enhanced compliance",
+      "Reduced manual effort",
+      "Better customer experience"
+    ],
+    "use_cases": [
+      "Customer onboarding",
+      "KYC processes",
+      "Data management",
+      "Compliance monitoring"
+    ]
+  },
+  {
+    "solution_name": "Collateral Email Channel Automation",
+    "filename": "Collateral email channel automation-Brochure-1.pdf",
+    "category": "digital_solutions",
+    "description": "Vermeg Collateral Email Channel Automation is a professional solution designed to meet the specific needs of financial institutions.",
+    "features": [
+      "Professional-grade functionality",
+      "Integration capabilities",
+      "Compliance support",
+      "User-friendly interface",
+      "Scalable architecture"
+    ],
+    "benefits": [
+      "Improved operational efficiency",
+      "Enhanced compliance",
+      "Reduced operational risk",
+      "Better customer service",
+      "Cost optimization"
+    ],
+    "use_cases": [
+      "Business process optimization",
+      "Compliance management",
+      "Risk management",
+      "Customer service enhancement"
+    ]
+  },
+  {
+    "solution_name": "Default Management",
+    "filename": "Default Management-Brochure.pdf",
+    "category": "digital_solutions",
+    "description": "Vermeg Default Management is a professional solution designed to meet the specific needs of financial institutions.",
+    "features": [
+      "Professional-grade functionality",
+      "Integration capabilities",
+      "Compliance support",
+      "User-friendly interface",
+      "Scalable architecture"
+    ],
+    "benefits": [
+      "Improved operational efficiency",
+      "Enhanced compliance",
+      "Reduced operational risk",
+      "Better customer service",
+      "Cost optimization"
+    ],
+    "use_cases": [
+      "Business process optimization",
+      "Compliance management",
+      "Risk management",
+      "Customer service enhancement"
+    ]
+  },
+  {
+    "solution_name": "Digital Commercial Agreement",
+    "filename": "Digital Commercial Agreement-Brochure.pdf",
+    "category": "digital_solutions",
+    "description": "Vermeg Digital Commercial Agreement is a professional solution designed to meet the specific needs of financial institutions.",
+    "features": [
+      "Professional-grade functionality",
+      "Integration capabilities",
+      "Compliance support",
+      "User-friendly interface",
+      "Scalable architecture"
+    ],
+    "benefits": [
+      "Improved operational efficiency",
+      "Enhanced compliance",
+      "Reduced operational risk",
+      "Better customer service",
+      "Cost optimization"
+    ],
+    "use_cases": [
+      "Business process optimization",
+      "Compliance management",
+      "Risk management",
+      "Customer service enhancement"
+    ]
+  },
+  {
+    "solution_name": "Easy Agreement",
+    "filename": "Easy Agreement- Brochure.pdf",
+    "category": "digital_solutions",
+    "description": "Vermeg Easy Agreement is a digital contract management solution that streamlines the agreement process.",
+    "features": [
+      "Digital contract creation",
+      "Electronic signatures",
+      "Workflow automation",
+      "Template management",
+      "Compliance tracking"
+    ],
+    "benefits": [
+      "Faster contract processing",
+      "Reduced paper usage",
+      "Improved compliance",
+      "Enhanced efficiency",
+      "Better customer experience"
+    ],
+    "use_cases": [
+      "Contract management",
+      "Digital agreements",
+      "Signature workflows",
+      "Compliance tracking"
+    ]
+  },
+  {
+    "solution_name": "Easy Collateral",
+    "filename": "Easy collateral for ECB-Brochure.pdf",
+    "category": "digital_solutions",
+    "description": "Vermeg Easy Collateral is a professional solution designed to meet the specific needs of financial institutions.",
+    "features": [
+      "Professional-grade functionality",
+      "Integration capabilities",
+      "Compliance support",
+      "User-friendly interface",
+      "Scalable architecture"
+    ],
+    "benefits": [
+      "Improved operational efficiency",
+      "Enhanced compliance",
+      "Reduced operational risk",
+      "Better customer service",
+      "Cost optimization"
+    ],
+    "use_cases": [
+      "Business process optimization",
+      "Compliance management",
+      "Risk management",
+      "Customer service enhancement"
+    ]
+  },
+  {
+    "solution_name": "Easy Collateral",
+    "filename": "Easy collateral platform- Brochure.pdf",
+    "category": "digital_solutions",
+    "description": "Vermeg Easy Collateral is a professional solution designed to meet the specific needs of financial institutions.",
+    "features": [
+      "Professional-grade functionality",
+      "Integration capabilities",
+      "Compliance support",
+      "User-friendly interface",
+      "Scalable architecture"
+    ],
+    "benefits": [
+      "Improved operational efficiency",
+      "Enhanced compliance",
+      "Reduced operational risk",
+      "Better customer service",
+      "Cost optimization"
+    ],
+    "use_cases": [
+      "Business process optimization",
+      "Compliance management",
+      "Risk management",
+      "Customer service enhancement"
+    ]
+  },
+  {
+    "solution_name": "Fast Track",
+    "filename": "Fast Track- Brochure.pdf",
+    "category": "digital_solutions",
+    "description": "Vermeg Fast Track is a professional solution designed to meet the specific needs of financial institutions.",
+    "features": [
+      "Professional-grade functionality",
+      "Integration capabilities",
+      "Compliance support",
+      "User-friendly interface",
+      "Scalable architecture"
+    ],
+    "benefits": [
+      "Improved operational efficiency",
+      "Enhanced compliance",
+      "Reduced operational risk",
+      "Better customer service",
+      "Cost optimization"
+    ],
+    "use_cases": [
+      "Business process optimization",
+      "Compliance management",
+      "Risk management",
+      "Customer service enhancement"
+    ]
+  },
+  {
+    "solution_name": "Group Insurance Member Enrolment",
+    "filename": "Group Insurance Member Enrolment-Brochure .pdf",
+    "category": "digital_solutions",
+    "description": "Vermeg Group Insurance Member Enrolment is a professional solution designed to meet the specific needs of financial institutions.",
+    "features": [
+      "Professional-grade functionality",
+      "Integration capabilities",
+      "Compliance support",
+      "User-friendly interface",
+      "Scalable architecture"
+    ],
+    "benefits": [
+      "Improved operational efficiency",
+      "Enhanced compliance",
+      "Reduced operational risk",
+      "Better customer service",
+      "Cost optimization"
+    ],
+    "use_cases": [
+      "Business process optimization",
+      "Compliance management",
+      "Risk management",
+      "Customer service enhancement"
+    ]
+  },
+  {
+    "solution_name": "Individual Life & Health Insurance",
+    "filename": "Individual Life & Health Insurance-Brochure (1).pdf",
+    "category": "digital_solutions",
+    "description": "Vermeg Individual Life & Health Insurance is a professional solution designed to meet the specific needs of financial institutions.",
+    "features": [
+      "Professional-grade functionality",
+      "Integration capabilities",
+      "Compliance support",
+      "User-friendly interface",
+      "Scalable architecture"
+    ],
+    "benefits": [
+      "Improved operational efficiency",
+      "Enhanced compliance",
+      "Reduced operational risk",
+      "Better customer service",
+      "Cost optimization"
+    ],
+    "use_cases": [
+      "Business process optimization",
+      "Compliance management",
+      "Risk management",
+      "Customer service enhancement"
+    ]
+  },
+  {
+    "solution_name": "Individual Life & Health Insurance",
+    "filename": "Individual Life & Health Insurance-Brochure.pdf",
+    "category": "digital_solutions",
+    "description": "Vermeg Individual Life & Health Insurance is a professional solution designed to meet the specific needs of financial institutions.",
+    "features": [
+      "Professional-grade functionality",
+      "Integration capabilities",
+      "Compliance support",
+      "User-friendly interface",
+      "Scalable architecture"
+    ],
+    "benefits": [
+      "Improved operational efficiency",
+      "Enhanced compliance",
+      "Reduced operational risk",
+      "Better customer service",
+      "Cost optimization"
+    ],
+    "use_cases": [
+      "Business process optimization",
+      "Compliance management",
+      "Risk management",
+      "Customer service enhancement"
+    ]
+  },
+  {
+    "solution_name": "Money for Life",
+    "filename": "Money for life-Brochure .pdf",
+    "category": "digital_solutions",
+    "description": "Vermeg Money for Life is a professional solution designed to meet the specific needs of financial institutions.",
+    "features": [
+      "Professional-grade functionality",
+      "Integration capabilities",
+      "Compliance support",
+      "User-friendly interface",
+      "Scalable architecture"
+    ],
+    "benefits": [
+      "Improved operational efficiency",
+      "Enhanced compliance",
+      "Reduced operational risk",
+      "Better customer service",
+      "Cost optimization"
+    ],
+    "use_cases": [
+      "Business process optimization",
+      "Compliance management",
+      "Risk management",
+      "Customer service enhancement"
+    ]
+  },
+  {
+    "solution_name": "Optimizer",
+    "filename": "Optimizer-Brochure.pdf",
+    "category": "digital_solutions",
+    "description": "Vermeg Optimizer is a professional solution designed to meet the specific needs of financial institutions.",
+    "features": [
+      "Professional-grade functionality",
+      "Integration capabilities",
+      "Compliance support",
+      "User-friendly interface",
+      "Scalable architecture"
+    ],
+    "benefits": [
+      "Improved operational efficiency",
+      "Enhanced compliance",
+      "Reduced operational risk",
+      "Better customer service",
+      "Cost optimization"
+    ],
+    "use_cases": [
+      "Business process optimization",
+      "Compliance management",
+      "Risk management",
+      "Customer service enhancement"
+    ]
+  },
+  {
+    "solution_name": "Oversight Limits",
+    "filename": "Oversight Limits- Brochure .pdf",
+    "category": "digital_solutions",
+    "description": "Vermeg Oversight Limits is a professional solution designed to meet the specific needs of financial institutions.",
+    "features": [
+      "Professional-grade functionality",
+      "Integration capabilities",
+      "Compliance support",
+      "User-friendly interface",
+      "Scalable architecture"
+    ],
+    "benefits": [
+      "Improved operational efficiency",
+      "Enhanced compliance",
+      "Reduced operational risk",
+      "Better customer service",
+      "Cost optimization"
+    ],
+    "use_cases": [
+      "Business process optimization",
+      "Compliance management",
+      "Risk management",
+      "Customer service enhancement"
+    ]
+  },
+  {
+    "solution_name": "Xchanger",
+    "filename": "Xchanger- Brochure.pdf",
+    "category": "digital_solutions",
+    "description": "Vermeg Xchanger is a comprehensive regulatory reporting platform that helps financial institutions manage their regulatory obligations efficiently.",
+    "features": [
+      "Automated regulatory reporting",
+      "Multi-jurisdiction compliance",
+      "Real-time data validation",
+      "Flexible data transformation",
+      "Comprehensive audit trail"
+    ],
+    "benefits": [
+      "Reduces compliance costs",
+      "Minimizes regulatory risk",
+      "Improves data quality",
+      "Accelerates reporting processes",
+      "Ensures regulatory compliance"
+    ],
+    "use_cases": [
+      "Regulatory reporting",
+      "Risk management",
+      "Data quality management",
+      "Compliance monitoring"
+    ]
+  },
+  {
+    "solution_name": "Colline",
+    "filename": "Colline Brochure June 2025.pdf",
+    "category": "core_solutions",
+    "description": "Vermeg Colline is a powerful insurance and pension administration platform designed to manage the complete lifecycle of insurance products.",
+    "features": [
+      "Policy administration",
+      "Claims management",
+      "Premium calculation",
+      "Workflow automation",
+      "Multi-product support"
+    ],
+    "benefits": [
+      "Streamlines operations",
+      "Reduces processing time",
+      "Improves customer service",
+      "Enhances operational efficiency",
+      "Supports business growth"
+    ],
+    "use_cases": [
+      "Life insurance administration",
+      "Pension fund management",
+      "Claims processing",
+      "Customer relationship management"
+    ]
+  },
+  {
+    "solution_name": "General",
+    "filename": "General-Brochure.pdf",
+    "category": "core_solutions",
+    "description": "Vermeg General is a professional solution designed to meet the specific needs of financial institutions.",
+    "features": [
+      "Professional-grade functionality",
+      "Integration capabilities",
+      "Compliance support",
+      "User-friendly interface",
+      "Scalable architecture"
+    ],
+    "benefits": [
+      "Improved operational efficiency",
+      "Enhanced compliance",
+      "Reduced operational risk",
+      "Better customer service",
+      "Cost optimization"
+    ],
+    "use_cases": [
+      "Business process optimization",
+      "Compliance management",
+      "Risk management",
+      "Customer service enhancement"
+    ]
+  },
+  {
+    "solution_name": "Megara",
+    "filename": "Megara Brochure June 2025.pdf",
+    "category": "core_solutions",
+    "description": "Vermeg Megara is an advanced analytics and risk management platform that provides comprehensive insights for financial institutions.",
+    "features": [
+      "Advanced analytics",
+      "Risk assessment",
+      "Portfolio management",
+      "Stress testing",
+      "Real-time monitoring"
+    ],
+    "benefits": [
+      "Enhanced risk visibility",
+      "Better decision making",
+      "Improved portfolio performance",
+      "Regulatory compliance",
+      "Operational efficiency"
+    ],
+    "use_cases": [
+      "Risk management",
+      "Portfolio optimization",
+      "Regulatory reporting",
+      "Stress testing"
+    ]
+  },
+  {
+    "solution_name": "Soliam",
+    "filename": "Soliam- Brochure.pdf",
+    "category": "core_solutions",
+    "description": "Vermeg Soliam is a comprehensive asset management platform that provides end-to-end portfolio management capabilities.",
+    "features": [
+      "Portfolio management",
+      "Trade execution",
+      "Risk monitoring",
+      "Performance analysis",
+      "Compliance management"
+    ],
+    "benefits": [
+      "Optimized investment performance",
+      "Reduced operational risk",
+      "Enhanced compliance",
+      "Improved efficiency",
+      "Better client service"
+    ],
+    "use_cases": [
+      "Asset management",
+      "Portfolio optimization",
+      "Risk management",
+      "Performance monitoring"
+    ]
+  },
+  {
+    "solution_name": "Solife",
+    "filename": "Solife-Brochure.pdf",
+    "category": "core_solutions",
+    "description": "Vermeg Solife is a comprehensive life insurance platform that manages the entire lifecycle of life insurance products.",
+    "features": [
+      "Policy administration",
+      "Premium management",
+      "Claims processing",
+      "Regulatory compliance",
+      "Customer management"
+    ],
+    "benefits": [
+      "Streamlined operations",
+      "Improved customer experience",
+      "Regulatory compliance",
+      "Reduced costs",
+      "Enhanced efficiency"
+    ],
+    "use_cases": [
+      "Life insurance administration",
+      "Policy management",
+      "Claims processing",
+      "Customer service"
+    ]
+  }
+]
