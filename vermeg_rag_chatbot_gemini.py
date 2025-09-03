@@ -23,7 +23,7 @@ MAX_TRANSLATION_RETRIES = 3
 TRANSLATION_TIMEOUT = 10  # seconds
 
 # Configure Gemini API
-GOOGLE_API_KEY = "AIzaSyACjyu6DmZqO2OXpsP-MQOhS3s3VUj6P7c"
+GOOGLE_API_KEY = ""
 genai.configure(api_key=GOOGLE_API_KEY)
 
 class VermegGeminiChatbot:
