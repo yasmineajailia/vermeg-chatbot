@@ -114,3 +114,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Built with [Google Generative AI](https://github.com/google/generative-ai-python)
 - Embedding model: [SentenceTransformers](https://www.sbert.net/)
 - PDF processing: [PyPDF2](https://pypdf2.readthedocs.io/)
+<img width="1920" height="1031" alt="image" src="https://github.com/user-attachments/assets/996131f8-5288-4067-9e9f-d1329be2c3f9" />
