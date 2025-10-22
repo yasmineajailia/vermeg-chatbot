@@ -105,9 +105,6 @@ The repo includes tools for creating and fine-tuning models:
 
 The frontend interface is contained in `static/index.html` and can be customized to match your branding requirements.
 
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments
 
