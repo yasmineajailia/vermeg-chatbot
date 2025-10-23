@@ -293,6 +293,9 @@ class VermegGeminiChatbot:
 
         except Exception as e:
             logger.error(f"Error generating response: {str(e)}")
+            logger.error(f"Error type: {type(e).__name__}")
+            import traceback
+            logger.error(f"Traceback: {traceback.format_exc()}")
             error_msg = "Je suis désolé, mais j'ai du mal à traiter cette demande. Pourriez-vous reformuler votre question?" if is_french else "I apologize, but I'm having trouble processing that request. Could you try rephrasing your question?"
             return error_msg
 
