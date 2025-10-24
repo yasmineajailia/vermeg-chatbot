@@ -17,6 +17,9 @@ build/
 vermeg-chatbot-cpu/
 vermeg-chatbot-finetuned/
 
+# Embeddings cache
+embeddings_cache/
+
 # Environment variables and secrets
 .env
 *.key

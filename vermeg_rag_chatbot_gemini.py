@@ -13,6 +13,12 @@ import numpy as np
 import re
 from langdetect import detect
 from translate import Translator
+import pickle
+import hashlib
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -23,19 +29,24 @@ MAX_TRANSLATION_RETRIES = 3
 TRANSLATION_TIMEOUT = 10  # seconds
 
 # Configure Gemini API
-GOOGLE_API_KEY = ""
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
+if not GOOGLE_API_KEY:
+    logger.warning("GOOGLE_API_KEY not found in environment variables")
 genai.configure(api_key=GOOGLE_API_KEY)
 
 class VermegGeminiChatbot:
     def __init__(
         self,
         chunk_size: int = 500,
-        chunk_overlap: int = 50
+        chunk_overlap: int = 50,
+        cache_dir: str = "embeddings_cache"
     ):
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
+        self.cache_dir = Path(cache_dir)
+        self.cache_dir.mkdir(exist_ok=True)
         self.documents = []
-        self.model = genai.GenerativeModel("gemini-1.5-flash")
+        self.model = genai.GenerativeModel("gemini-2.0-flash")
         
         # Using SentenceTransformer for document embedding and similarity search
         logger.info("Loading SentenceTransformer model...")
@@ -92,13 +103,58 @@ class VermegGeminiChatbot:
             'embeddings': self.embedding_model.encode([company_info])
         })
 
+    def _get_cache_path(self, pdf_path: Path) -> Path:
+        """Generate a cache file path for a given PDF."""
+        # Create a hash of the PDF path and its modification time
+        pdf_hash = hashlib.md5(str(pdf_path).encode()).hexdigest()
+        return self.cache_dir / f"{pdf_hash}.pkl"
+    
+    def _is_cache_valid(self, pdf_path: Path, cache_path: Path) -> bool:
+        """Check if the cache file exists and is newer than the PDF."""
+        if not cache_path.exists():
+            return False
+        
+        pdf_mtime = pdf_path.stat().st_mtime
+        cache_mtime = cache_path.stat().st_mtime
+        return cache_mtime > pdf_mtime
+    
+    def _save_cache(self, cache_path: Path, data: Dict) -> None:
+        """Save document data to cache."""
+        try:
+            with open(cache_path, 'wb') as f:
+                pickle.dump(data, f)
+            logger.info(f"Saved cache: {cache_path.name}")
+        except Exception as e:
+            logger.warning(f"Failed to save cache: {str(e)}")
+    
+    def _load_cache(self, cache_path: Path) -> Dict:
+        """Load document data from cache."""
+        try:
+            with open(cache_path, 'rb') as f:
+                return pickle.load(f)
+        except Exception as e:
+            logger.warning(f"Failed to load cache: {str(e)}")
+            return None
+
     def load_documents(self, directory: str) -> None:
         """Load and process PDF documents from the specified directory."""
         logger.info(f"Loading documents from {directory}")
         pdf_files = list(Path(directory).glob("**/*.pdf"))
         
         for pdf_path in pdf_files:
+            cache_path = self._get_cache_path(pdf_path)
+            
+            # Try to load from cache first
+            if self._is_cache_valid(pdf_path, cache_path):
+                logger.info(f"Loading from cache: {pdf_path.name}")
+                cached_data = self._load_cache(cache_path)
+                if cached_data:
+                    self.documents.append(cached_data)
+                    continue
+            
+            # Process PDF if cache doesn't exist or is invalid
             try:
+                logger.info(f"Processing PDF: {pdf_path.name}")
                 with open(pdf_path, 'rb') as file:
                     pdf_reader = PyPDF2.PdfReader(file)
                     text = ""
@@ -108,29 +164,22 @@ class VermegGeminiChatbot:
                     # Split text into chunks with overlap
                     chunks = self._split_text(text)
                     
+                    # Generate embeddings
+                    embeddings = self.embedding_model.encode(chunks)
+                    
                     # Store document information
                     doc_info = {
-                'source': str(pdf_path),
-                    'chunks': chunks,
-                    'embeddings': self.embedding_model.encode(chunks)
-                }
-                self.documents.append(doc_info)
-                logger.info(f"Processed: {pdf_path}")
-                
-                # Add company info for common queries
-                company_info = """Vermeg is a global financial technology company with offices in multiple locations:
-                - Europe: Paris (France), Luxembourg, Brussels (Belgium), Amsterdam (Netherlands), Madrid (Spain)
-                - UK and South Africa: London (UK)
-                - Asia Pacific: Shanghai (China), Tokyo (Japan), Singapore, Sydney (Australia)
-                - Americas: New York (USA), São Paulo (Brazil)
-                - Tunisia: Multiple offices in Tunis
-                
-                Vermeg Group B.V. serves over 160 clients worldwide in 40+ countries."""
-                self.documents.append({
-                    'source': 'company_info',
-                    'chunks': [company_info],
-                    'embeddings': self.embedding_model.encode([company_info])
-                })
+                        'source': str(pdf_path),
+                        'chunks': chunks,
+                        'embeddings': embeddings
+                    }
+                    
+                    # Save to cache
+                    self._save_cache(cache_path, doc_info)
+                    
+                    self.documents.append(doc_info)
+                    logger.info(f"Processed and cached: {pdf_path.name}")
+                    
             except Exception as e:
                 logger.error(f"Error processing {pdf_path}: {str(e)}")
                 
