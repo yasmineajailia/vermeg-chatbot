@@ -196,28 +196,49 @@ class VermegGeminiChatbot:
             
         return chunks
 
-    def _find_relevant_chunks(self, query: str, top_k: int = 3) -> List[str]:
-        """Find the most relevant chunks for the given query using semantic search."""
+    def _find_relevant_chunks(self, query: str, top_k: int = 3) -> tuple[List[str], List[Dict]]:
+        """Find the most relevant chunks for the given query using semantic search.
+        Returns: (chunks, citations) where citations include source document info."""
         if not self.documents:
-            return []
+            return [], []
 
         query_embedding = self.embedding_model.encode(query)
         
         all_similarities = []
         all_chunks = []
+        all_sources = []
         
         for doc in self.documents:
             similarities = np.dot(doc['embeddings'], query_embedding)
-            all_similarities.extend(similarities)
-            all_chunks.extend(doc['chunks'])
+            source_name = Path(doc['source']).name
+            
+            for i, sim in enumerate(similarities):
+                all_similarities.append(sim)
+                all_chunks.append(doc['chunks'][i])
+                all_sources.append({
+                    'source': source_name,
+                    'similarity': float(sim)
+                })
         
         # Get indices of top-k most similar chunks
         top_indices = np.argsort(all_similarities)[-top_k:][::-1]
         
-        return [all_chunks[i] for i in top_indices]
+        top_chunks = [all_chunks[i] for i in top_indices]
+        top_citations = [all_sources[i] for i in top_indices]
+        
+        # Deduplicate citations by source
+        seen_sources = set()
+        unique_citations = []
+        for citation in top_citations:
+            if citation['source'] not in seen_sources:
+                seen_sources.add(citation['source'])
+                unique_citations.append(citation)
+        
+        return top_chunks, unique_citations
 
-    def generate_response(self, user_query: str) -> str:
-        """Generate a response using Gemini based on relevant document chunks."""
+    def generate_response(self, user_query: str) -> Dict:
+        """Generate a response using Gemini based on relevant document chunks.
+        Returns: Dict with 'answer' and 'citations' keys."""
         try:
             # Detect language
             lang = detect(user_query)
@@ -231,14 +252,14 @@ class VermegGeminiChatbot:
                 user_query_en = user_query
 
             # Find relevant chunks with increased number for better context
-            relevant_chunks = self._find_relevant_chunks(user_query_en, top_k=5)
+            relevant_chunks, citations = self._find_relevant_chunks(user_query_en, top_k=5)
             
             if not relevant_chunks:
                 response = "I don't have information about that yet. Feel free to ask about our solutions like Colline, Megara, or our other services."
                 if is_french:
                     translator = Translator(from_lang='en', to_lang='fr')
-                    return translator.translate(response)
-                return response
+                    return {"answer": translator.translate(response), "citations": []}
+                return {"answer": response, "citations": []}
             
             # Construct the prompt with improved context and instructions
             context = "\n".join(relevant_chunks)
@@ -338,15 +359,95 @@ class VermegGeminiChatbot:
             if answer and not answer.endswith(('.', '!', '?')):
                 answer += '.'
             
-            return answer
+            return {"answer": answer, "citations": citations}
 
         except Exception as e:
             logger.error(f"Error generating response: {str(e)}")
             logger.error(f"Error type: {type(e).__name__}")
             import traceback
             logger.error(f"Traceback: {traceback.format_exc()}")
-            error_msg = "Je suis désolé, mais j'ai du mal à traiter cette demande. Pourriez-vous reformuler votre question?" if is_french else "I apologize, but I'm having trouble processing that request. Could you try rephrasing your question?"
-            return error_msg
+            error_msg = "Je suis désolé, mais j'ai du mal à traiter cette demande. Pourriez-vous reformuler votre question?" if 'is_french' in locals() and is_french else "I apologize, but I'm having trouble processing that request. Could you try rephrasing your question?"
+            return {"answer": error_msg, "citations": []}
+    
+    def generate_response_stream(self, user_query: str):
+        """Generate a streaming response using Gemini.
+        Yields: Dict chunks with 'type' ('token' or 'citations') and 'content'."""
+        try:
+            # Detect language
+            lang = detect(user_query)
+            is_french = lang == 'fr'
+            
+            # Translate query to English if it's French
+            if is_french:
+                translator = Translator(to_lang='en', from_lang='fr')
+                user_query_en = translator.translate(user_query)
+            else:
+                user_query_en = user_query
+
+            # Find relevant chunks
+            relevant_chunks, citations = self._find_relevant_chunks(user_query_en, top_k=5)
+            
+            if not relevant_chunks:
+                response = "I don't have information about that yet. Feel free to ask about our solutions like Colline, Megara, or our other services."
+                if is_french:
+                    translator = Translator(from_lang='en', to_lang='fr')
+                    response = translator.translate(response)
+                yield {"type": "token", "content": response}
+                yield {"type": "citations", "content": []}
+                return
+            
+            # Construct the prompt
+            context = "\n".join(relevant_chunks)
+            prompt = f"""You are Vermeg's friendly and knowledgeable AI assistant. 
+            {
+                "Vous devez répondre en français de manière professionnelle et conviviale." 
+                if is_french else 
+                "Please respond in English in a professional and friendly manner."
+            }
+
+            Information:
+            {context}
+
+            Question: {user_query_en}
+
+            Instructions:
+            - Respond naturally as if you're part of Vermeg
+            - Focus on what you can tell about our solutions and services
+            - Be clear and specific about features and benefits
+            - Do not mention limitations in available information
+            - Never use phrases like "the text mentions" or "according to"
+            - Don't add disclaimers about missing information
+            - If you don't have enough information about something, simply don't mention it
+            - Keep responses positive and focused on what we offer
+            """
+
+            # Generate streaming response
+            generation_config = genai.types.GenerationConfig(
+                temperature=0.6,
+                top_p=0.9,
+                top_k=50,
+                max_output_tokens=2048,
+            )
+
+            response = self.model.generate_content(
+                prompt,
+                generation_config=generation_config,
+                stream=True
+            )
+            
+            # Stream tokens
+            for chunk in response:
+                if chunk.text:
+                    yield {"type": "token", "content": chunk.text}
+            
+            # Send citations at the end
+            yield {"type": "citations", "content": citations}
+
+        except Exception as e:
+            logger.error(f"Error in streaming response: {str(e)}")
+            error_msg = "I apologize, but I'm having trouble processing that request."
+            yield {"type": "token", "content": error_msg}
+            yield {"type": "citations", "content": []}
 
 def main():
     # Initialize the chatbot
@@ -364,7 +465,9 @@ def main():
             break
             
         response = chatbot.generate_response(user_input)
-        print(f"\nChatbot: {response}")
+        print(f"\nChatbot: {response['answer']}")
+        if response['citations']:
+            print(f"Sources: {', '.join([c['source'] for c in response['citations']])}")
 
 if __name__ == "__main__":
     main()
