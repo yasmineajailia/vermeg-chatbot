@@ -406,67 +406,17 @@
             showTyping();
             
             try {
-                const response = await fetch('/ask/stream', {
+                // Use non-streaming endpoint as fallback for now
+                const response = await fetch('/ask', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ question })
                 });
                 
+                const data = await response.json();
+                
                 removeTyping();
-                
-                const botMessageDiv = document.createElement('div');
-                botMessageDiv.className = 'message bot-message';
-                chatbox.appendChild(botMessageDiv);
-                
-                let fullText = '';
-                let citations = [];
-                
-                const reader = response.body.getReader();
-                const decoder = new TextDecoder();
-                
-                while (true) {
-                    const { done, value } = await reader.read();
-                    if (done) break;
-                    
-                    const chunk = decoder.decode(value);
-                    const lines = chunk.split('\n');
-                    
-                    for (const line of lines) {
-                        if (line.startsWith('data: ')) {
-                            const data = JSON.parse(line.slice(6));
-                            
-                            if (data.type === 'token') {
-                                fullText += data.content;
-                                let formattedText = fullText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-                                formattedText = formattedText.replace(/•\s+(.*?)(?=(?:•|\n\n|$))/g, '<li>$1</li>');
-                                if (formattedText.includes('<li>')) {
-                                    formattedText = formattedText.replace(/<li>.*?<\/li>/gs, match => '<ul>' + match + '</ul>');
-                                }
-                                formattedText = '<p>' + formattedText.replace(/\n\n+/g, '</p><p>') + '</p>';
-                                formattedText = formattedText.replace(/\n(?!<\/p>)/g, '<br>');
-                                formattedText = formattedText.replace(/<p>\s*<\/p>/g, '');
-                                
-                                botMessageDiv.innerHTML = formattedText;
-                                chatbox.scrollTop = chatbox.scrollHeight;
-                            } else if (data.type === 'citations') {
-                                citations = data.content;
-                            }
-                        }
-                    }
-                }
-                
-                if (citations && citations.length > 0) {
-                    const citationsDiv = document.createElement('div');
-                    citationsDiv.className = 'citations';
-                    citationsDiv.innerHTML = '<div class="citation-title">📚 Sources:</div>';
-                    citations.forEach(citation => {
-                        const citationSpan = document.createElement('span');
-                        citationSpan.className = 'citation-item';
-                        citationSpan.textContent = citation.source.replace('.pdf', '').replace(/-/g, ' ');
-                        citationsDiv.appendChild(citationSpan);
-                    });
-                    botMessageDiv.appendChild(citationsDiv);
-                }
+                appendMessage('Bot', data.answer, data.citations || []);
                 
             } catch (error) {
                 removeTyping();
